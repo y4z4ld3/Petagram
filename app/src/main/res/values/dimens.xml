@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="activitiy_horizontal_margin" >16dp</dimen>
+    <dimen name="activitiy_vertical_margin" >16dp</dimen>
+    <dimen name="lista_height">200dp</dimen>
+    <dimen name="card_width">200dp</dimen>
+    <dimen name="card_height">100dp</dimen>
+    <dimen name="card_radio">4dp</dimen>
+    <dimen name="card_titulo">20sp</dimen>
+</resources>

@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Petagram</string>
-</resources>
+    <string name="texto_titulo">Bienvenido</string>
+    <string name="texto_btn_click">Click</string>
+    <string name="mensaje">Favorito ;-)</string>
+    <string name="texto_accion">Accion</string>
+    <string-array name="strArrFamilia">
+        <item>Aleiram</item>
+        <item>Andrés</item>
+        <item>Yazalde</item>
+    </string-array>
+    <string name="texto_titulo_card">Android 5.0</string>
+    <string name="texto_descr_card">Esta es la versión en la que se incluyó Material Design Android Lollipop.</string>
+    <string name="texto_descr_img">Lollipop</string>
+  </resources>

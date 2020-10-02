@@ -4,43 +4,89 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    tools:context=".MainActivity"
+    android:background="@color/colorFondo">
+    <RelativeLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="378dp"
-        android:layout_height="569dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.484"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.117"
-        app:srcCompat="@drawable/puppylogo" />
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/srlMiIndicadorRefresh"
+            android:layout_height="@dimen/lista_height"
+            android:layout_width="match_parent">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Bienvenidos"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
-        android:textColor="@color/colortTextoTitulo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <ListView
+                android:id="@+id/lvMiLista"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/lista_height">
+            </ListView>
+         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    <Button
-        android:id="@+id/button"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Accesar"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="499dp" />
+        <TextView
+            android:id="@+id/tvTitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/texto_titulo"
+            android:layout_below="@id/srlMiIndicadorRefresh"/>
+
+        <Button
+            android:id="@+id/btnMiBoton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvTitulo"
+            android:text="@string/texto_btn_click"
+            android:theme="@style/MiBotonRaisen" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_launcher_round"
+            android:layout_below="@id/btnMiBoton"
+            android:id="@+id/fabMiFAB"
+            >
+        </com.google.android.material.floatingactionbutton.FloatingActionButton>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="@dimen/card_width"
+            android:layout_height="@dimen/card_width"
+            android:layout_below="@id/fabMiFAB"
+            card_view:cardCornerRadius="@dimen/card_radio"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/imgCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/card_height"
+                    android:contentDescription="@string/texto_descr_img"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/material_lollipop">
+                </ImageView>
+
+                <TextView
+                    android:id="@+id/tvTituloCard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/imgCard"
+                    android:text="@string/texto_titulo_card"
+                    android:textSize="@dimen/card_titulo"
+                    android:textStyle="bold">
+                </TextView>
+                <TextView
+                    android:id="@+id/tvDescCard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/texto_descr_card"
+                    android:layout_below="@id/tvTituloCard">
+                </TextView>
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -21,4 +21,8 @@
         android:id="@+id/mConfigurarCuenta"
         android:title="@string/mConfCta"
         android:orderInCategory="30" />
+    <item
+        android:id="@+id/mRecibirNotificaciones"
+        android:title="@string/mRecibirNotificaciones"
+        android:orderInCategory="30" />
  </menu>

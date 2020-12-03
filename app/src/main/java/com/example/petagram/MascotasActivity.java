@@ -1,10 +1,19 @@
 package com.example.petagram;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
+
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,13 +21,17 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.petagram.adapter.PageAdapter;
 import com.example.petagram.vista_fragment.MascotasFragment;
 import com.example.petagram.vista_fragment.PerfilMascotaFragment;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -28,6 +41,7 @@ public class MascotasActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private static final String TAG = "MascotasActivity";
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -119,11 +133,84 @@ public class MascotasActivity extends AppCompatActivity {
                 intent = new Intent(this,ConfigurarCuentaActivity.class);
                 startActivity(intent);
                 return true;
+            case R.id.mRecibirNotificaciones:
+                enviarNotificacion();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
+    private void enviarNotificacion() {
+        // Get token
+        // [START log_reg_token]
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "Fetching FCM registration token failed", task.getException());
+                            return;
+                        }
+
+                        // Get new FCM registration token
+                        String token = task.getResult();
+
+                        // Log and toast
+                        String msg = getString(R.string.msg_token_fmt, token);
+                        Log.d(TAG, msg);
+                        Toast.makeText(MascotasActivity.this, msg, Toast.LENGTH_SHORT).show();
+                        NotificationService notificationService = new NotificationService();
+                        notificationService.onNewToken(token);
+                    }
+                });
+        // [END log_reg_token]
+    }
+
+    private void lanzarNotificacion() {
+        try {
+            createNotificationChannel();
+            Intent i  = new Intent(this,MascotasActivity.class);
+            PendingIntent pendingIntent = PendingIntent.getActivity(this,0,i,PendingIntent.FLAG_ONE_SHOT);
+
+            Uri sonido = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
+
+            NotificationCompat.Builder notificacion = new NotificationCompat.Builder(this,"CHANNEL_ID")
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setContentTitle("Notificación")
+                    .setContentText("Hola Mundo")
+                    .setSound(sonido)
+                    .setContentIntent(pendingIntent)
+                    .setAutoCancel(true);
+
+            NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+
+            notificationManager.notify(0,notificacion.build());
+
+        } catch (Exception e) {
+            //e.printStackTrace();
+            Toast.makeText(this,"Error Notificación",Toast.LENGTH_SHORT).show();
+            Log.e("Notificación",e.getStackTrace().toString());
+        }
+    }
+
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // 9B:99:13:BE:B2:DC:F9:70:D2:A1:5D:A0:14:47:A3:17:F5:14:F4:AE
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = getString(R.string.channel_name);
+            String description = getString(R.string.channel_description);
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("CHANNEL_ID", name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
 
     public void irAMascotaTop5(){
         Bundle extras = new Bundle();

@@ -12,7 +12,9 @@ public final class ConstantesRestApi {
     public static final String USER  = "{user}";
     public static final String URL_GET_INFORMATION_USER  = USER;//+KEY_ACCEES_TOKEN+TOKEN+FIEDLS;
     public static final String URL_GET_INFORMATION_MEDIA_DATA =ID_MEDIA_DATA;//+KEY_ACCEES_TOKEN+TOKEN+FIEDLS_MEDIA;
-    public static String Cuenta_Instagram  = "";
-    public static String gUserId  = "";
-    public static String gToken  = "";
+    public static String Cuenta_Instagram  = "@petagrmapp";
+    public static String gUserId  = USER_ID;
+    public static String gToken  = ACCEES_TOKEN_IG;
+    public static final String ROOT_URL_MI_API = "https://whispering-shore-83841.herokuapp.com/";
+    public static final String KEY_POST_ID_TOKEN = "registrar-usuario/";
 }

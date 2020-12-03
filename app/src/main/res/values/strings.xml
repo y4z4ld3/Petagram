@@ -31,4 +31,11 @@
     <string name="msgCuentaErrada">Cuenta Errada</string>
     <string name="msgCuentaGuardada">Cuenta Guardada</string>
     <string name="msgCuentaNoAceptada">Cuenta No Aceptada</string>
+    <string name="btnNotificacion">Enviar Notificación</string>
+    <string name="channel_name">Canal Petagram</string>
+    <string name="channel_description">Notificacion Petagram</string>
+    <string name="log_token">Log Token</string>
+    <string name="msg_token_fmt" translatable="false">FCM registration Token: %s</string>
+    <string name="mRecibirNotificaciones">Recibir Notificaciones</string>
+    <string name="cerrarBth">Cerrar</string>
 </resources>

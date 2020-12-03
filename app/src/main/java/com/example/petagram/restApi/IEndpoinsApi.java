@@ -2,9 +2,13 @@ package com.example.petagram.restApi;
 
 import com.example.petagram.restApi.model.MascotaImgUrlResponse;
 import com.example.petagram.restApi.model.MascotaResponse;
+import com.example.petagram.restApi.model.UsuarioResponse;
 
 import retrofit2.Call;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -21,4 +25,9 @@ public interface IEndpoinsApi {
                                              @Query(value = "fields") String fields);
     // Call<MascotaResponse>  getUrlMedia(@Path(value = "url_media",encoded = false) String url_media);
     // Call<MascotaImgUrlResponse>  getUrlMedia(@Path(value = "id_media",encoded = true) String id_media);
+
+    @FormUrlEncoded
+    @POST(ConstantesRestApi.KEY_POST_ID_TOKEN)
+    Call<UsuarioResponse> registrarTokenID(@Field("id_dispositivo") String id_dispositivo,
+                                           @Field("id_usuario_instagram") String id_usuario_instagram);
 }

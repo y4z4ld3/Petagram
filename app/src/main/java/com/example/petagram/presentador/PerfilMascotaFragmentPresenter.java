@@ -41,6 +41,11 @@ public class PerfilMascotaFragmentPresenter implements IPerfilMascotaFragmentPre
     public void obtenerPerfilMascota() {
         interactorPerfilMascota = new InteractorPerfilMascota(context);
         coleccion = interactorPerfilMascota.obtenerDatos();
+        try {
+            Thread.sleep(6000);
+        } catch (InterruptedException e) {
+            Log.e("sleep",e.toString());
+        }
         mostrarPerfilMascota();
     }
 

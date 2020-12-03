@@ -20,4 +20,5 @@
     <dimen name="civ_border_width">6dp</dimen>
     <dimen name="civ_width">200dp</dimen>
     <dimen name="civ_height">200dp</dimen>
+    <dimen name="standard_field_width">200dp</dimen>
 </resources>

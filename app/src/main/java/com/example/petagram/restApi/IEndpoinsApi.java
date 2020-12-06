@@ -1,5 +1,6 @@
 package com.example.petagram.restApi;
 
+import com.example.petagram.restApi.model.LikeUsuarioRespose;
 import com.example.petagram.restApi.model.MascotaImgUrlResponse;
 import com.example.petagram.restApi.model.MascotaResponse;
 import com.example.petagram.restApi.model.UsuarioResponse;
@@ -30,4 +31,13 @@ public interface IEndpoinsApi {
     @POST(ConstantesRestApi.KEY_POST_ID_TOKEN)
     Call<UsuarioResponse> registrarTokenID(@Field("id_dispositivo") String id_dispositivo,
                                            @Field("id_usuario_instagram") String id_usuario_instagram);
+    @FormUrlEncoded
+    @POST(ConstantesRestApi.KEY_POST_LIKE_FOTO)
+    Call<LikeUsuarioRespose> registrarLikeFoto(@Field("id_dispositivo") String id_dispositivo,
+                                               @Field("id_usuario_instagram") String id_usuario_instagram,
+                                               @Field("id_foto") String id_foto);
+
+    @GET(ConstantesRestApi.KEY_POST_NOTIFICAR_LIKE_FOTO)
+    Call<LikeUsuarioRespose>  notificarLikeFoto(@Path(value = "id",encoded = true) String id);
+
 }

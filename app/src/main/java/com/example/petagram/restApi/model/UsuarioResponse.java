@@ -1,7 +1,7 @@
 package com.example.petagram.restApi.model;
 
 public class UsuarioResponse {
-    private String id, id_dispositivo,id_usuario_instagram;
+    protected String id, id_dispositivo,id_usuario_instagram;
 
     public UsuarioResponse(String id, String id_dispositivo, String id_usuario_instagram) {
         this.id = id;

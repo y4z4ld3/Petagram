@@ -24,6 +24,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.petagram.adapter.PageAdapter;
+import com.example.petagram.restApi.ConstantesRestApi;
 import com.example.petagram.vista_fragment.MascotasFragment;
 import com.example.petagram.vista_fragment.PerfilMascotaFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -65,6 +66,7 @@ public class MascotasActivity extends AppCompatActivity {
         viewPager = (ViewPager) findViewById(R.id.viewPager);
 
         setUpViewPager();
+        enviarNotificacion();
       }
 
     private ArrayList<Fragment> agregarFragments(){
@@ -82,8 +84,11 @@ public class MascotasActivity extends AppCompatActivity {
         tabLayout.setTabIndicatorFullWidth(true);
     }
 
-
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        viewPager.setCurrentItem(1);
+    }
 
     public void agregarFAB() {
         FloatingActionButton miFAB = (FloatingActionButton)findViewById(R.id.fabMiFAB);
@@ -155,11 +160,11 @@ public class MascotasActivity extends AppCompatActivity {
 
                         // Get new FCM registration token
                         String token = task.getResult();
-
+                        ConstantesRestApi.gId_Dispositivo = token;
                         // Log and toast
                         String msg = getString(R.string.msg_token_fmt, token);
                         Log.d(TAG, msg);
-                        Toast.makeText(MascotasActivity.this, msg, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(MascotasActivity.this, msg, Toast.LENGTH_SHORT).show();
                         NotificationService notificationService = new NotificationService();
                         notificationService.onNewToken(token);
                     }
@@ -197,7 +202,6 @@ public class MascotasActivity extends AppCompatActivity {
 
     private void createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because
-        // 9B:99:13:BE:B2:DC:F9:70:D2:A1:5D:A0:14:47:A3:17:F5:14:F4:AE
         // the NotificationChannel class is new and not in the support library
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = getString(R.string.channel_name);

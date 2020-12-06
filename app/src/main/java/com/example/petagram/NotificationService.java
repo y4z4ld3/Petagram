@@ -33,7 +33,8 @@ public class NotificationService extends FirebaseMessagingService {
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         //  super.onMessageReceived(remoteMessage);
         try {
-            Intent i  = new Intent(this,MainActivity.class);
+            createNotificationChannel();
+            Intent i  = new Intent(this,MascotasActivity.class);
             PendingIntent pendingIntent = PendingIntent.getActivity(this,0,i,PendingIntent.FLAG_ONE_SHOT);
 
             Uri sonido = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
@@ -42,7 +43,7 @@ public class NotificationService extends FirebaseMessagingService {
             NotificationCompat.Builder notificacion = new NotificationCompat.Builder(this,"CHANNEL_ID")
                     .setSmallIcon(R.mipmap.ic_launcher)
                     .setContentTitle("Notificación")
-                    .setContentText(remoteMessage.getFrom())
+                    .setContentText(remoteMessage.getNotification().getBody())
                     .setSound(sonido)
                     .setContentIntent(pendingIntent)
                     .setAutoCancel(true);
@@ -63,6 +64,7 @@ public class NotificationService extends FirebaseMessagingService {
         // super.onNewToken(s);
         Log.i("onNewToken",token);
         enviarTokenRegistro(token);
+        ConstantesRestApi.gId_Dispositivo = token;
     }
 
     private void enviarTokenRegistro(String id_dispositivo) {
@@ -89,7 +91,6 @@ public class NotificationService extends FirebaseMessagingService {
 
     private void createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because
-        // 9B:99:13:BE:B2:DC:F9:70:D2:A1:5D:A0:14:47:A3:17:F5:14:F4:AE
         // the NotificationChannel class is new and not in the support library
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = getString(R.string.channel_name);

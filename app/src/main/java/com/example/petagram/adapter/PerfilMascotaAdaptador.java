@@ -72,7 +72,8 @@ public class PerfilMascotaAdaptador extends RecyclerView.Adapter<PerfilMascotaAd
         perfilViewHolder.imgFotoColeccionMascota.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EnviarLike(mascota_hold.getId_apiRest());
+                ConstantesRestApi.gId_Foto = mascota_hold.getId_apiRest();
+                EnviarLike(ConstantesRestApi.gId_Foto);
             }
         });
 

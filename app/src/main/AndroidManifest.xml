@@ -70,6 +70,11 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+        <receiver android:name=".LikeMascota">
+            <intent-filter>
+                <action android:name="LIKE_MASCOTA"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

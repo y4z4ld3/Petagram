@@ -16,6 +16,7 @@ public final class ConstantesRestApi {
     public static String gUserId  = USER_ID;
     public static String gToken  = ACCEES_TOKEN_IG;
     public static String gId_Dispositivo="" ;
+    public static String gId_Foto="" ;
     public static final String ROOT_URL_MI_API = "https://whispering-shore-83841.herokuapp.com/";
     public static final String KEY_POST_ID_TOKEN = "registrar-usuario/";
     public static final String KEY_POST_LIKE_FOTO = "registrar-like/";

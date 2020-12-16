@@ -38,4 +38,8 @@
     <string name="msg_token_fmt" translatable="false">FCM registration Token: %s</string>
     <string name="mRecibirNotificaciones">Recibir Notificaciones</string>
     <string name="cerrarBth">Cerrar</string>
+    <string name="texto_accion_like">Dar Like</string>
+    <string name="texto_accion_ver_perfil">Ver mi Perfil</string>
+    <string name="texto_accion_ver_usuario">Ver Usuario</string>
+    <string name="texto_accion_ver_top_5">Ver Top 5</string>
 </resources>

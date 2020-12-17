@@ -3,10 +3,13 @@ package com.example.petagram;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -16,6 +19,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.transition.Explode;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -219,6 +223,16 @@ public class MascotasActivity extends AppCompatActivity {
     public void irAMascotaTop5(){
         Bundle extras = new Bundle();
         Intent intent = new Intent(this,MascotasTop5Activity.class);
-        startActivity(intent);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+            Explode explode = new Explode();
+            explode.setDuration(1234);
+            getWindow().setExitTransition(explode);
+            startActivity(intent,
+                    ActivityOptionsCompat.makeSceneTransitionAnimation(this,viewPager,"").toBundle());
+        }
+        else {
+            startActivity(intent);
+        }
+
     }
 }

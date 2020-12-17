@@ -3,18 +3,19 @@ package com.example.petagram;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
+
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.transition.Fade;
+import android.transition.Slide;
+import android.view.Gravity;
 
 import com.example.petagram.adapter.PageAdapter;
-import com.example.petagram.pojo.Mascota;
-import com.example.petagram.presentador.MascotasTop5Presenter;
-import com.example.petagram.vista_fragment.MascotasFragment;
+
 import com.example.petagram.vista_fragment.MascotasTop5Fragment;
-import com.example.petagram.vista_fragment.PerfilMascotaFragment;
+
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ public class MascotasTop5Activity extends  AppCompatActivity  {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setIcon(R.drawable.ic_huella);
 
-        tabLayout = (TabLayout) findViewById(R.id.tabLayoutTop5);
+        // tabLayout = (TabLayout) findViewById(R.id.tabLayoutTop5);
         viewPager = (ViewPager) findViewById(R.id.viewPagerTop5);
         setUpViewPager();
 
@@ -54,8 +55,16 @@ public class MascotasTop5Activity extends  AppCompatActivity  {
 
     private void setUpViewPager(){
         viewPager.setAdapter(new PageAdapter(getSupportFragmentManager(),agregarFragmentsUnico() ));
-        tabLayout.setupWithViewPager(viewPager);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+            Slide slide = new Slide(Gravity.BOTTOM);
+            slide.setDuration(1234);
+            getWindow().setEnterTransition(slide);
+            getWindow().setReturnTransition(new Fade(Fade.OUT));
+        }
+        /*  tabLayout.setupWithViewPager(viewPager);
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_galeria);
         tabLayout.setTabIndicatorFullWidth(true);
+
+         */
     }
 }
